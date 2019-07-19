@@ -1,6 +1,21 @@
-﻿Age Group,2015,2016,2017,2018
-19 to 29 years old,"8,795","11,855","35,375","36,060"
-30 to 39 years old,"10,275","11,300","29,425","32,730"
-40 to 64 years old,"2,460","2,575","2,930","2,935"
-65 years old or more,10,10,20,15
-Total - All Ages,"21,545","25,740","67,750","71,740"
+﻿name,date,count
+19 to 29 years old,2015,"8,795"
+19 to 29 years old,2016,"11,855"
+19 to 29 years old,2017,"35,375"
+19 to 29 years old,2018,"36,060"
+30 to 39 years old,2015,"10,275"
+30 to 39 years old,2016,"11,300"
+30 to 39 years old,2017,"29,425"
+30 to 39 years old,2018,"32,730"
+40 to 64 years old,2015,"2,460"
+40 to 64 years old,2016,"2,575"
+40 to 64 years old,2017,"2,930"
+40 to 64 years old,2018,"2,935"
+65 years old or more,2015,10
+65 years old or more,2016,10
+65 years old or more,2017,20
+65 years old or more,2018,15
+Total - All Ages,2015,"21,545"
+Total - All Ages,2016,"25,740"
+Total - All Ages,2017,"67,750"
+Total - All Ages,2018,"71,740"
