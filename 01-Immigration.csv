@@ -1,28 +1,28 @@
 ﻿name,date,price
-Ontario,2015,"7,345"
-Ontario,2016,"10,170"
-Ontario,2017,"44,955"
-Ontario,2018,"46,575"
-British Columbia,2015,"4,380"
-British Columbia,2016,"6,520"
-British Columbia,2017,"12,190"
-British Columbia,2018,"14,445"
-Alberta,2015,"7,990"
-Alberta,2016,"5,070"
-Alberta,2017,"5,575"
-Alberta,2018,"4,810"
+Ontario,2015,7345
+Ontario,2016,10170
+Ontario,2017,44955
+Ontario,2018,46575
+British Columbia,2015,4380
+British Columbia,2016,6520
+British Columbia,2017,12190
+British Columbia,2018,14445
+Alberta,2015,7990
+Alberta,2016,5070
+Alberta,2017,5575
+Alberta,2018,4810
 Nova Scotia,2015,650
-Nova Scotia,2016,"1,185"
-Nova Scotia,2017,"1,545"
-Nova Scotia,2018,"1,715"
+Nova Scotia,2016,1185
+Nova Scotia,2017,1545
+Nova Scotia,2018,1715
 Saskatchewan,2015,555
-Saskatchewan,2016,"1,455"
-Saskatchewan,2017,"1,255"
-Saskatchewan,2018,"1,625"
+Saskatchewan,2016,1455
+Saskatchewan,2017,1255
+Saskatchewan,2018,1625
 Manitoba,2015,235
 Manitoba,2016,185
 Manitoba,2017,630
-Manitoba,2018,"1,070"
+Manitoba,2018,1070
 New Brunswick,2015,140
 New Brunswick,2016,550
 New Brunswick,2017,890
