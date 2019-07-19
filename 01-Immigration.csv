@@ -1,14 +1,49 @@
-﻿Province,2015,2016,2017,2018
-Ontario,"7,345","10,170","44,955","46,575"
-British Columbia,"4,380","6,520","12,190","14,445"
-Alberta,"7,990","5,070","5,575","4,810"
-Nova Scotia,650,"1,185","1,545","1,715"
-Saskatchewan,555,"1,455","1,255","1,625"
-Manitoba,235,185,630,"1,070"
-New Brunswick,140,550,890,820
-Prince Edward Island,135,470,410,400
-Newfoundland and Labrador,60,85,220,190
-Yukon,10,15,40,50
-Northwest Territories,30,35,35,35
-Nunavut,10,0,0,0
-Total - All Canada,"21,545","25,740","67,750","71,740"
+﻿name,date,price
+Ontario,2015,"7,345"
+Ontario,2016,"10,170"
+Ontario,2017,"44,955"
+Ontario,2018,"46,575"
+British Columbia,2015,"4,380"
+British Columbia,2016,"6,520"
+British Columbia,2017,"12,190"
+British Columbia,2018,"14,445"
+Alberta,2015,"7,990"
+Alberta,2016,"5,070"
+Alberta,2017,"5,575"
+Alberta,2018,"4,810"
+Nova Scotia,2015,650
+Nova Scotia,2016,"1,185"
+Nova Scotia,2017,"1,545"
+Nova Scotia,2018,"1,715"
+Saskatchewan,2015,555
+Saskatchewan,2016,"1,455"
+Saskatchewan,2017,"1,255"
+Saskatchewan,2018,"1,625"
+Manitoba,2015,235
+Manitoba,2016,185
+Manitoba,2017,630
+Manitoba,2018,"1,070"
+New Brunswick,2015,140
+New Brunswick,2016,550
+New Brunswick,2017,890
+New Brunswick,2018,820
+Prince Edward Island,2015,135
+Prince Edward Island,2016,470
+Prince Edward Island,2017,410
+Prince Edward Island,2018,400
+Newfoundland and Labrador,2015,60
+Newfoundland and Labrador,2016,85
+Newfoundland and Labrador,2017,220
+Newfoundland and Labrador,2018,190
+Yukon,2015,10
+Yukon,2016,15
+Yukon,2017,40
+Yukon,2018,50
+Northwest Territories,2015,30
+Northwest Territories,2016,35
+Northwest Territories,2017,35
+Northwest Territories,2018,35
+Nunavut,2015,10
+Nunavut,2016,0
+Nunavut,2017,0
+Nunavut,2018,0
