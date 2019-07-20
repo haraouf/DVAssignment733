@@ -1,0 +1,304 @@
+
+<html>
+
+<Style>
+svg {
+    font-family: Sans-Serif, Arial;
+}
+.line {
+  stroke-width: 3;
+  fill: none;
+}
+   .annotation-note-title, text.title {
+      font-weight: bold;
+    }
+.axis path {
+  stroke: black;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.title-text {
+  font-size: 15px;
+}
+</Style>
+  <head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
+  </head>
+  <body onload="init()">
+  <h4>Slide Navigation:<button onclick="init(dataset1,mm1,ant1,ypos1,yheight1,head21)">01</button>
+<button onclick="init(dataset2,mm2,ant2,ypos2,yheight2,head22)">02</button>
+<button onclick="init(dataset3,mm3,ant3,ypos3,yheight3,head23)">03</button>
+<button onclick="init(dataset4,mm4,ant4,ypos4,yheight4,head24)">04</button></h4>
+<h1>Canada Express Entry</h1>
+<h4>A case study about canada immigration and the impact of different parameters on the nomination</h4>
+<div id="chart"><svg width=400 height=500>
+</svg></div>
+
+
+<Script>
+
+var dataset2 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/02-AgeGroup4.csv"
+var mm2 = "19 to 39 years old"
+var ant2 = "Top Age Groups"
+var ypos2 = 110-50
+var yheight2= 30
+var head22="Age Group"
+var dataset1 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/01-Immigration4.csv"
+var mm1 = "Ontario , BC , Alberta"
+var ant1 = "Top Provinance"
+var ypos1 = 100-50
+var yheight1= 80
+var head21="Immigration Totals"
+var dataset3 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/04-FieldofStudy6.csv"
+var mm3 = "Buisness & IT"
+var ant3 = "Top Field of Studies"
+var ypos3 = 140-50
+var yheight3= 20
+var head23="Field of Study"
+var dataset4 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/06-LevelofEducation4.csv"
+var mm4 = "Masters & BSc."
+var ant4 = "Top Level of Education"
+var ypos4 = 120-50
+var yheight4= 30
+var head24="Level of Education"
+async function init(haitham,mm,ant,ypos,yheight,head2){
+
+d3.select("svg").remove().transition()
+
+
+// ==== RIGHT ====== //
+const annotationsRight = [
+  {
+    note: {
+      label: mm,
+      title: ant
+    },
+    type: d3.annotationCalloutRect,
+    subject: {
+      width: 60,
+      height: yheight
+    },
+    x: 450,
+    y: ypos,
+    dy: 50,
+    dx: 100
+  }
+]
+
+const annotationsRight2 = [
+  {
+    note: {
+      label: "",
+      title: head2
+    },
+    type: d3.annotationCalloutRect,
+    subject: {
+      width: 1,
+      height: 1
+    },
+    x: 450,
+    y: 0,
+    dy: 0,
+    dx: 100
+  }
+]
+
+  
+ const data1 = await d3.csv(haitham);
+z=data1.forEach(function(d) {
+  d.count1 = +d.count1;
+});
+var max = d3.max(data1, function(d) { return d.count1; });
+console.log(data1)
+var data = d3.nest()
+  .key(function(d) { return d.name; })
+  .entries(data1);
+
+var width = 500;
+var height = 400;
+var margin = 50;
+var duration = 200;
+
+var lineOpacity = "0.25";
+var lineOpacityHover = "0.85";
+var otherLinesOpacityHover = "0.1";
+var lineStroke = "1.5px";
+var lineStrokeHover = "2.5px";
+
+var circleOpacity = '0.85';
+var circleOpacityOnLineHover = "0.25"
+var circleRadius = 3;
+var circleRadiusHover = 6;
+
+/* Format Data */
+var parseDate = d3.timeParse("%Y");
+data.forEach(function(d) { 
+  d.values.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.count1 = d.count1;    
+  });
+});    
+
+
+/* Scale */
+var xScale = d3.scaleTime()
+  .domain(d3.extent(data[0].values, d => d.date))
+  .range([0, width-margin]);
+
+var yScale = d3.scaleLog()
+  .domain([1, max])
+  .range([height-margin, 0]).base(2);
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+/* Add SVG */
+var svg = d3.selectAll("#chart").append("svg")
+  .attr("width", (width+margin+150)+"px")
+  .attr("height", (height+margin)+"px")
+  .append('g')
+  .attr("transform", `translate(${margin}, ${margin})`);
+
+
+  
+
+/* Add line into SVG */
+var line = d3.line()
+  .x(d => xScale(d.date))
+  .y(d => yScale(d.count1)).curve(d3.curveMonotoneX);
+//////////////////
+let lines = svg.append('g')
+  .attr('class', 'lines');
+
+// Add annotation to the chart
+const makeAnnotationsRight = d3.annotation()
+  .annotations(annotationsRight)
+d3.select("svg")
+  .append("g")
+  .call(makeAnnotationsRight)
+  
+const makeAnnotationsRight2 = d3.annotation()
+  .annotations(annotationsRight2)
+d3.select("svg")
+  .append("g")
+  .call(makeAnnotationsRight2)
+
+lines.selectAll('.line-group')
+  .data(data).enter()
+  .append('g')
+  .attr('class', 'line-group')  
+  .on("mouseover", function(d, i) {
+      svg.append("text")
+        .attr("class", "title-text")
+        .style("fill", color(i)) 
+        .text(d.key)
+        .attr("text-anchor", "middle")
+        .attr("x", (width-margin)/2)
+        .attr("y", 5);
+    })
+
+
+  .on("mouseout", function(d) {
+      svg.select(".title-text").remove();
+    })
+  .append('path')
+  .attr('class', 'line')  
+  .attr('d', d => line(d.values))
+  .style('stroke', (d, i) => color(i))
+  .style('opacity', lineOpacity)
+   .on("mouseover", function(d) {
+      d3.selectAll('.line').style('opacity', otherLinesOpacityHover);
+      d3.selectAll('.circle').style('opacity', circleOpacityOnLineHover);
+      d3.select(this)
+        .style('opacity', lineOpacityHover)
+        .style("stroke-width", lineStrokeHover)
+        .style("cursor", "pointer");
+    })
+
+  .on("mouseout", function(d) {
+      d3.selectAll(".line")
+					.style('opacity', lineOpacity);
+      d3.selectAll('.circle')
+					.style('opacity', circleOpacity);
+      d3.select(this)
+        .style("stroke-width", lineStroke)
+        .style("cursor", "none");
+    });
+  
+
+
+/* Add circles in the line */
+lines.selectAll("circle-group")
+  .data(data).enter()
+  .append("g")
+  .style("fill", (d, i) => color(i))
+  .selectAll("circle")
+  .data(d => d.values).enter()
+  .append("g")
+  .attr("class", "circle")  
+  .on("mouseover", function(d) {
+      d3.select(this)     
+        .style("cursor", "pointer")
+        .append("text")
+        .attr("class", "text")
+        .text(`${d.count1}`)
+        .attr("x", d => xScale(d.date) + 5)
+        .attr("y", d => yScale(d.count1) - 10);
+    })
+  .on("mouseout", function(d) {
+      d3.select(this)
+        .style("cursor", "none")  
+        .transition()
+        .duration(duration)
+        .selectAll(".text").remove();
+    })
+  .append("circle")
+  .attr("cx", d => xScale(d.date))
+  .attr("cy", d => yScale(d.count1))
+  .attr("r", circleRadius)
+  .style('opacity', circleOpacity)
+  .on("mouseover", function(d) {
+        d3.select(this)
+          .transition()
+          .duration(duration)
+          .attr("r", circleRadiusHover);
+      })
+    .on("mouseout", function(d) {
+        d3.select(this) 
+          .transition()
+          .duration(duration)
+          .attr("r", circleRadius);  
+      });
+
+
+/* Add Axis into SVG */
+
+var xAxis = d3.axisBottom(xScale).ticks(5);
+var yAxis = d3.axisLeft(yScale).ticks(4,".0s");
+
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", `translate(0, ${height-margin})`)
+  .call(xAxis);
+
+svg.append("g")
+  .attr("class", "y axis")
+  .call(yAxis)
+  .append('text')
+  .attr("y", 15)
+  .attr("transform", "rotate(-90)")
+  .attr("fill", "#000")
+  .text("Total Immigrants");
+}
+
+init(dataset1,mm1,ant1,ypos1,yheight1,head21)
+
+
+    
+</Script>
+  </body>
+</html>
