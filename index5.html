@@ -26,25 +26,19 @@ svg {
 </Style>
   <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-
-<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
-
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   </head>
-  <body onload="init()">
+<body onload="init()">
 
-<h1 style="color:#D52B1E;">Canadian Express Entry<img src="" alt="Girl in a jacket"></h1>
-<h4>A case study about canada immigration and the impact of different parameters on the nomination</h4>
+<h1 style="color:#D52B1E;">Canadian Express Entry<img src="https://raw.githubusercontent.com/haraouf/DVAssignment733/master/canada2.jpg" alt="Canada" width="30" height="30"></h1>
+<h4>A case study about Canadian immigration and the impact of different parameters on the nomination</h4>
 <h4>Slide Navigation:<button onclick="init(dataset1,mm1,ant1,ypos1,yheight1,head21)">01</button>
 <button onclick="init(dataset2,mm2,ant2,ypos2,yheight2,head22)">02</button>
 <button onclick="init(dataset3,mm3,ant3,ypos3,yheight3,head23)">03</button>
 <button onclick="init(dataset4,mm4,ant4,ypos4,yheight4,head24)">04</button></h4>
-<div id="chart"><svg width=1000 height=500>
-
-</svg></div>
+<div id="chart"><svg width=1000 height=500></svg></div>
 <p>*mouseover different line charts to know the category and compare with other charts<br>**mouseover the circle markers to know the immigration value at a certain year</p>
-
 <Script>
-
 var dataset2 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/02-AgeGroup4.csv"
 var mm2 = "19 to 39 years old"
 var ant2 = "Top Age Groups"
@@ -57,24 +51,21 @@ var ant1 = "Top Provinance"
 var ypos1 = 100-50
 var yheight1= 80
 var head21="Immigration Totals"
-var dataset4 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/04-FieldofStudy6.csv"
-var mm4 = "Buisness & IT"
-var ant4 = "Top Field of Studies"
-var ypos4 = 140-50
-var yheight4= 20
-var head24="Field of Study"
-var dataset3 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/06-LevelofEducation4.csv"
-var mm3 = "Masters & BSc."
-var ant3 = "Top Level of Education"
-var ypos3 = 120-50
-var yheight3= 30
-var head23="Level of Education"
-async function init(haitham,mm,ant,ypos,yheight,head2){
+var dataset3 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/04-FieldofStudy6.csv"
+var mm3 = "Buisness & IT"
+var ant3 = "Top Field of Studies"
+var ypos3 = 140-50
+var yheight3= 20
+var head23="Field of Study"
+var dataset4 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/06-LevelofEducation4.csv"
+var mm4 = "Masters & BSc."
+var ant4 = "Top Level of Education"
+var ypos4 = 120-50
+var yheight4= 30
+var head24="Level of Education"
+async function init(Linkdata,mm,ant,ypos,yheight,head2){
 
 d3.select("svg").remove().transition()
-
-
-// ==== RIGHT ====== //
 const annotationsRight = [
   {
     note: {
@@ -112,7 +103,7 @@ const annotationsRight2 = [
 ]
 
   
- const data1 = await d3.csv(haitham);
+const data1 = await d3.csv(Linkdata);
 z=data1.forEach(function(d) {
   d.count1 = +d.count1;
 });
@@ -125,7 +116,7 @@ var data = d3.nest()
 var width = 1000;
 var height = 400;
 var margin = 50;
-var duration = 200;
+var duration = 250;
 
 var lineOpacity = "0.25";
 var lineOpacityHover = "0.85";
@@ -138,7 +129,6 @@ var circleOpacityOnLineHover = "0.25"
 var circleRadius = 3;
 var circleRadiusHover = 6;
 
-/* Format Data */
 var parseDate = d3.timeParse("%Y");
 data.forEach(function(d) { 
   d.values.forEach(function(d) {
@@ -148,7 +138,6 @@ data.forEach(function(d) {
 });    
 
 
-/* Scale */
 var xScale = d3.scaleTime()
   .domain(d3.extent(data[0].values, d => d.date))
   .range([0, width-margin]);
@@ -158,7 +147,6 @@ var yScale = d3.scaleLog()
   .range([height-margin, 0]).base(2);
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-/* Add SVG */
 var svg = d3.selectAll("#chart").append("svg")
   .attr("width", (width+margin+150)+"px")
   .attr("height", (height+margin)+"px")
@@ -167,16 +155,14 @@ var svg = d3.selectAll("#chart").append("svg")
 
 
   
-
-/* Add line into SVG */
 var line = d3.line()
   .x(d => xScale(d.date))
   .y(d => yScale(d.count1)).curve(d3.curveMonotoneX);
-//////////////////
+
 let lines = svg.append('g')
   .attr('class', 'lines');
 
-// Add annotation to the chart
+
 const makeAnnotationsRight = d3.annotation()
   .annotations(annotationsRight)
 d3.select("svg")
@@ -202,7 +188,6 @@ lines.selectAll('.line-group')
         .attr("x", (width-margin)/2)
         .attr("y", 5);
     })
-
 
   .on("mouseout", function(d) {
       svg.select(".title-text").remove();
@@ -233,7 +218,7 @@ lines.selectAll('.line-group')
   
 
 
-/* Add circles in the line */
+
 lines.selectAll("circle-group")
   .data(data).enter()
   .append("g")
@@ -277,7 +262,7 @@ lines.selectAll("circle-group")
       });
 
 
-/* Add Axis into SVG */
+
 
 var xAxis = d3.axisBottom(xScale).ticks(5);
 var yAxis = d3.axisLeft(yScale).ticks(4,".0s");
@@ -302,5 +287,5 @@ init(dataset1,mm1,ant1,ypos1,yheight1,head21)
 
     
 </Script>
-  </body>
+</body>
 </html>
