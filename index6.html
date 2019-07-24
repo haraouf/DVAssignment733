@@ -28,44 +28,103 @@ svg {
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   </head>
-<body onload="init()">
-
+<body onload="init(1)">
 <h1 style="color:#D52B1E;">Canadian Express Entry<img src="https://raw.githubusercontent.com/haraouf/DVAssignment733/master/canada2.jpg" alt="Canada" width="30" height="30"></h1>
 <h4>A case study about Canadian immigration and the impact of different parameters on the nomination</h4>
-<h4>Slide Navigation:<button onclick="init(dataset1,mm1,ant1,ypos1,yheight1,head21)">01</button>
-<button onclick="init(dataset2,mm2,ant2,ypos2,yheight2,head22)">02</button>
-<button onclick="init(dataset3,mm3,ant3,ypos3,yheight3,head23)">03</button>
-<button onclick="init(dataset4,mm4,ant4,ypos4,yheight4,head24)">04</button></h4>
+<h4 id=cont1>Slide Navigation:
+<button id="button5" onclick="init(5)"><</button>
+<button id="button1" onclick="init(1)" style="background-color:#D52B1E">01</button>
+<button id="button2" onclick="init(2)"style="background-color:grey">02</button>
+<button id="button3" onclick="init(3)"style="background-color:grey">03</button>
+<button id="button4" onclick="init(4)"style="background-color:grey">04</button>
+<button id="button6" onclick="init(6)">></button></h4>
 <div id="chart"><svg width=1000 height=500></svg></div>
 <p>*mouseover different line charts to know the category and compare with other charts<br>**mouseover the circle markers to know the immigration value at a certain year</p>
 <Script>
-var dataset2 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/02-AgeGroup4.csv"
-var mm2 = "19 to 39 years old"
-var ant2 = "Top Age Groups"
-var ypos2 = 110-50
-var yheight2= 30
-var head22="Age Group"
+
 var dataset1 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/01-Immigration4.csv"
 var mm1 = "Ontario , BC , Alberta"
 var ant1 = "Top Provinance"
 var ypos1 = 100-50
 var yheight1= 80
 var head21="Immigration Totals"
-var dataset3 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/04-FieldofStudy6.csv"
-var mm3 = "Buisness & IT"
-var ant3 = "Top Field of Studies"
-var ypos3 = 140-50
-var yheight3= 20
-var head23="Field of Study"
-var dataset4 = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/06-LevelofEducation4.csv"
-var mm4 = "Masters & BSc."
-var ant4 = "Top Level of Education"
-var ypos4 = 120-50
-var yheight4= 30
-var head24="Level of Education"
-async function init(Linkdata,mm,ant,ypos,yheight,head2){
+var z1=1
+
+
+
+async function init(choice1){
+console.log(choice1)
+if(choice1==5) {
+if(z1==1){
+choice1=z1
+}
+else{
+choice1=z1-1
+
+}
+}
+if (choice1==6) {
+if(z1==4){
+choice1=z1
+}
+else{
+choice1=z1+1
+}
+};
+console.log(choice1)
+
+if(choice1==1) {
+var Linkdata = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/01-Immigration4.csv"
+var mm = "Ontario , BC , Alberta"
+var ant = "Top Provinance"
+var ypos = 100-50
+var yheight= 80
+var head2="Immigration Totals"
+var order1=1
+z1=1
+
+}
+else if(choice1==2) {
+var Linkdata = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/02-AgeGroup4.csv"
+var mm = "19 to 39 years old"
+var ant = "Top Age Groups"
+var ypos = 110-50
+var yheight= 30
+var head2="Age Group"
+var order1=2
+z1=2
+
+}
+else if(choice1==3) {
+var Linkdata = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/04-FieldofStudy6.csv"
+var mm = "Buisness & IT"
+var ant = "Top Field of Studies"
+var ypos = 140-50
+var yheight= 20
+var head2="Field of Study"
+var order1=3
+z1=3
+
+}
+
+else{
+var Linkdata = "https://raw.githubusercontent.com/haraouf/DVAssignment733/master/06-LevelofEducation4.csv"
+var mm = "Masters & BSc."
+var ant = "Top Level of Education"
+var ypos = 120-50
+var yheight= 30
+var head2="Level of Education"
+var order1=4
+z1=4
+
+}
 
 d3.select("svg").remove().transition()
+d3.selectAll("#button1").style("background-color","grey");
+d3.selectAll("#button2").style("background-color","grey");
+d3.selectAll("#button3").style("background-color","grey");
+d3.selectAll("#button4").style("background-color","grey");
+d3.select("#button"+order1).style("background-color","#D52B1E");
 const annotationsRight = [
   {
     note: {
@@ -107,8 +166,9 @@ const data1 = await d3.csv(Linkdata);
 z=data1.forEach(function(d) {
   d.count1 = +d.count1;
 });
+
 var max = d3.max(data1, function(d) { return d.count1; });
-console.log(data1)
+
 var data = d3.nest()
   .key(function(d) { return d.name; })
   .entries(data1);
@@ -282,7 +342,7 @@ svg.append("g")
   .text("Total Immigrants");
 }
 
-init(dataset1,mm1,ant1,ypos1,yheight1,head21)
+
 
 
     
